@@ -1,12 +1,11 @@
 {
-  "name": "jobify-startup",
+  "name": "portofolio",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "server": "nodemon server --ignore client",
-    "client": "npm start --prefix client",
-    "start": "concurrently --kill-others-on-fail \"npm run server\" \" npm run client\""
+    "dev": "nodemon server.js",
+    "build": "npm i"
   },
   "keywords": [],
   "author": "",

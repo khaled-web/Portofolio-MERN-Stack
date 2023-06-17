@@ -4,7 +4,7 @@
 
 require('dotenv').config()
 const mockData = require('./mock-data.json')
-const Job = require('./models/job.js')
+// const Job = require('./models/job.js')
 const connectDB = require('./db/connect.js')
 
 //........

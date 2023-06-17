@@ -13,8 +13,7 @@ const connectDB = require('./db/connect.js')
 //morgan
 const morgan = require('morgan')
 //routes
-const authRoutes = require('./routes/authRoutes.js')
-const jobsRoutes = require('./routes/jobRoutes.js')
+const clientRouter = require('./routes/ContactRoutes.js')
 //middleware
 const notFoundMiddleware = require('./middleware/not-found.js')
 const errorHandlerMiddleware = require('./middleware/error-handler.js')
@@ -46,14 +45,13 @@ app.get('/api/v1', (req, res) => {
  })
 })
 //routes
-app.use('/api/v1/auth', authRoutes)
-app.use('/api/v1/job', authenticateUser, jobsRoutes)
+app.use('/api/v1', clientRouter)
 
 //middleware
 app.use(notFoundMiddleware)
 app.use(errorHandlerMiddleware)
 
-const port = process.env.PORT || 4000
+const port = process.env.PORT || 3000
 
 const start = async () => {
  try {
