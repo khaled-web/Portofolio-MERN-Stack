@@ -9,27 +9,14 @@ import React, {
  useEffect
 } from 'react';
 import {
- DISPLAY_ALERT,
  CLEAR_ALERT,
- REGISTER_USER_BEGIN,
- REGISTER_USER_SUCCESS,
- REGISTER_USER_ERROR,
- LOGIN_USER_BEGIN,
- LOGIN_USER_SUCCESS,
- LOGIN_USER_ERROR,
- SETUP_USER_BEGIN,
- SETUP_USER_SUCCESS,
- SETUP_USER_ERROR,
+ DISPLAY_ALERT,
  TOGGLE_SIDEBAR,
- LOGOUT_USER,
- UPDATE_USER_BEGIN,
- UPDATE_USER_SUCCESS,
- UPDATE_USER_ERROR,
- HANDLE_CHANGE,
- CLEAR_VALUES,
  SIDEBAR_OPEN,
  SIDEBAR_CLOSE,
-
+ SEND_CLIENT_BEGIN,
+ SEND_CLIENT_SUCCESS,
+ SEND_CLIENT_ERROR
 } from './action';
 import reducer from './reducer'
 import axios from 'axios'
@@ -42,10 +29,11 @@ import axios from 'axios'
 const initialState = {
   //authIssues
  isLoading: false,
- showAlert: false,
+ showAlert: true,
  alertText: '',
  alertType: '',
  isSidebarOpen:false,
+ 
 }
 
 //AppContext
@@ -68,12 +56,24 @@ const AppProvider = ({children})=>{
   const toggleSidebar = ()=>{
     dispatch({type:TOGGLE_SIDEBAR})
   }
+  //clearAlert
+  const clearAlert = ()=>{
+    setTimeout(()=>{
+      dispatch({type:CLEAR_ALERT})
+    },3000)
+  }
+  //display alert
+  const displayAlert = ()=>{
+    dispatch({type:DISPLAY_ALERT})
+    clearAlert()
+  }
 
   return <AppContext.Provider value={{
   ...state,
   openSideBar, 
   closeSideBar,
   toggleSidebar, 
+  displayAlert
   }}>
   {children}
  </AppContext.Provider>

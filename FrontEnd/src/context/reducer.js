@@ -5,10 +5,31 @@ import {
  SIDEBAR_CLOSE,
  TOGGLE_SIDEBAR,
  HANDLE_CHANGE,
- CLEAR_VALUES
+ CLEAR_VALUES,
+ SEND_CLIENT_BEGIN,
+ SEND_CLIENT_SUCCESS,
+ SEND_CLIENT_ERROR
 } from './action'
 
 const reducer = (state, action) => {
+ //display alert
+ if (action.type === DISPLAY_ALERT) {
+  return {
+   ...state,
+   showAlert: true,
+   alertType: 'danger',
+   alertText: 'Please provide all values'
+  }
+ }
+ //clear alert
+ if (action.type === CLEAR_ALERT) {
+  return {
+   ...state,
+   showAlert: false,
+   alertType: '',
+   alertText: ''
+  }
+ }
  //openSideBar
  if (action.type === SIDEBAR_OPEN) {
   return {

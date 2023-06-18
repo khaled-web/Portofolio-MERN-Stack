@@ -68,6 +68,15 @@ Variables
   --light-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   --dark-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
   --max-width: 1170px;
+  --borderRadius: 0.25rem;
+  --letterSpacing: 1px;
+    /* rest of the colors */
+  --black: #222;
+  --white: #fff;
+  --red-light: #f8d7da;
+  --red-dark: #842029;
+  --green-light: #d1e7dd;
+  --green-dark: #0f5132;
 }
 
 /*
@@ -1420,7 +1429,7 @@ form input, form textarea, select{
 
 form input::placeholder, form textarea::placeholder{
   text-transform: capitalize;
-  color: var(--clr-black-3);
+  color: var(--clr-white-2);
 }
 
 .contact-send{
@@ -1443,6 +1452,26 @@ form input::placeholder, form textarea::placeholder{
 .contact-send:hover{
   background: var(--clr-primary-5);
   color: var(--clr-black-3);
+}
+/* alerts */
+.alert {
+  padding: 0.375rem 0.75rem;
+  margin: auto;
+  border-color: transparent;
+  border-radius: var(--borderRadius);
+  text-align: center;
+  letter-spacing: var(--letterSpacing);
+  width: 50%;
+  margin-bottom: 2rem;
+}
+
+.alert-danger {
+  color: var(--red-dark);
+  background: var(--red-light);
+}
+.alert-success {
+  color: var(--green-dark);
+  background: var(--green-light);
 }
 
 
