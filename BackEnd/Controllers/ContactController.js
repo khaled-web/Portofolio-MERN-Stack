@@ -8,55 +8,54 @@ const CustomError = require('../errors/index.js')
 //app
 //....
 
-//register
+//MessageClient
 const messageClient = async (req, res) => {
- res.send('message from client')
- // //anyDataNotFound
- // const {
- //  name,
- //  email,
- //  message
- // } = req.body
- // if (!name || !email || !password) {
- //  throw new CustomError.BadRequestError('Please provide all values')
- // }
- // //emailExists
- // const emailAlreadyExists = await Contact.findOne({
- //  email
- // })
- // if (emailAlreadyExists) {
- //  throw new CustomError.BadRequestError('Email already exists')
- // }
+ //anyDataNotFound
+ const {
+  name,
+  email,
+  message
+ } = req.body
+ if (!name || !email || !message) {
+  throw new CustomError.BadRequestError('Please provide all values')
+ }
 
- // //schema
- // const contact = await Contact.create({
- //  name,
- //  email,
- //  message
- // })
- // //jwt
- // const token = contact.createJWT()
- // //response
- // res.status(StatusCodes.CREATED).json({
- //  user: {
- //   name: contact.name,
- //   email: contact.email,
- //   message: contact.message
- //  },
- //  token
- // })
+ //schema
+ const contact = await Contact.create({
+  name,
+  email,
+  message
+ })
+ //jwt
+ const token = contact.createJWT()
+ //response
+ res.status(StatusCodes.CREATED).json({
+  user: {
+   name: contact.name,
+   email: contact.email,
+   message: contact.message
+  },
+  token
+ })
 }
 
 
-//login
-const getClient = async (req, res) => {
- res.send('get clients')
+//get all clients
+const getAllClient = async (req, res) => {
+ const contact = await Contact.find({})
+ res.status(StatusCodes.OK).json({
+  count: contact.length,
+  contact
+ })
 }
+
+
+
 
 //.........
 //exporting
 //.........
 module.exports = {
  messageClient,
- getClient
+ getAllClient
 }

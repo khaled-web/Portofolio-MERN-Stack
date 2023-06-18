@@ -5,7 +5,7 @@ const express = require('express')
 const router = express.Router()
 const {
  messageClient,
- getClient
+ getAllClient
 } = require('../Controllers/ContactController')
 
 //....
@@ -13,7 +13,7 @@ const {
 //....
 
 router.post('/sendMessage', messageClient)
-router.get('/users', getClient)
+router.get('/users', getAllClient)
 
 
 

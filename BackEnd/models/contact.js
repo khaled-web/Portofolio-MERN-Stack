@@ -19,17 +19,16 @@ const ContactSchema = new mongoose.Schema({
  },
  email: {
   type: String,
-  unique: true,
+  // unique: true,
   validate: {
    validator: validator.isEmail,
    message: 'Please provide valid email'
-  },
-  unique: true
+  }
  },
  message: {
   type: String,
   required: [true, 'Please provide message'],
-  minLength: 50,
+  minLength: 3,
   MaxLength: 1000,
   trim: true
  },
