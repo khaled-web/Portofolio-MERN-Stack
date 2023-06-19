@@ -19,7 +19,13 @@ const messageClient = async (req, res) => {
  if (!name || !email || !message) {
   throw new CustomError.BadRequestError('Please provide all values')
  }
-
+ //don't repeat email
+ const emailAlreadyExists = await Contact.findOne({
+  email
+ })
+ if (emailAlreadyExists) {
+  throw new CustomError.BadRequestError('Email Already Exists')
+ }
  //schema
  const contact = await Contact.create({
   name,
