@@ -3,20 +3,21 @@
 //.............
 
 import React, {
- useState,
  useReducer,
  useContext,
- useEffect
+ useNavigate
 } from 'react';
+
 import {
  CLEAR_ALERT,
  DISPLAY_ALERT,
  TOGGLE_SIDEBAR,
  SIDEBAR_OPEN,
  SIDEBAR_CLOSE,
- SEND_CLIENT_BEGIN,
- SEND_CLIENT_SUCCESS,
- SEND_CLIENT_ERROR
+ SEND_MESSAGE_BEGIN,
+ SEND_MESSAGE_SUCCESS,
+ SEND_MESSAGE_ERROR,
+ CLEAR_VALUES
 } from './action';
 import reducer from './reducer'
 import axios from 'axios'
@@ -25,15 +26,18 @@ import axios from 'axios'
 //App.
 //.............
 
+
 //initialState
 const initialState = {
-  //authIssues
+
  isLoading: false,
- showAlert: true,
+ showAlert: false,
  alertText: '',
  alertType: '',
  isSidebarOpen:false,
- 
+ token:null,
+ client:null,
+ message:null
 }
 
 //AppContext
@@ -42,7 +46,6 @@ const AppContext = React.createContext();
 //AppProvider->>index.js
 const AppProvider = ({children})=>{
  const [state, dispatch]=useReducer(reducer, initialState);
-
 
   //openSidebar
   const openSideBar = ()=>{
@@ -67,13 +70,43 @@ const AppProvider = ({children})=>{
     dispatch({type:DISPLAY_ALERT})
     clearAlert()
   }
+  //clearValues
+  const clearValues = ()=>{
+    dispatch({type:CLEAR_VALUES})
+  }
+
+
+  //sendMessage
+  const sendMessage = async (clientData)=>{
+    dispatch({type:SEND_MESSAGE_BEGIN})
+    try {
+      const response = await axios.post('http://localhost:5000/api/v1/sendMessage', clientData)
+      console.log(response)
+      const {name,email,message, token} =response.data
+      dispatch({
+        type:SEND_MESSAGE_SUCCESS,
+        payload:{name, email, message, token}
+      })
+    } catch (error) {
+      console.log(error)
+      dispatch({
+        type:SEND_MESSAGE_ERROR,
+        payload:{
+          msg:error.response.data.msg
+        }
+      })
+    }
+    clearAlert()
+  }
 
   return <AppContext.Provider value={{
   ...state,
   openSideBar, 
   closeSideBar,
   toggleSidebar, 
-  displayAlert
+  displayAlert,
+  sendMessage,
+  clearValues
   }}>
   {children}
  </AppContext.Provider>

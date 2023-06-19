@@ -1,7 +1,8 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import emailjs from '@emailjs/browser'
 import {Navbar,Sidebar,Footer, Alert} from '../components'
 import {UseAppContext} from '../context/appContext'
+import {useNavigate} from 'react-router-dom'
 
   const initialState = {
     name:'',
@@ -12,7 +13,8 @@ import {UseAppContext} from '../context/appContext'
 
 const Contact = () => {
   const [values, setValues]=useState(initialState)
-  const {isLoading,showAlert, displayAlert}=UseAppContext()
+  const navigate = useNavigate()
+  const {isLoading,showAlert, displayAlert,sendMessage,client,clearValues}=UseAppContext()
   //global state and useNavigate
   const handleChange = (e)=>{
     setValues({...values,[e.target.name]:e.target.value})
@@ -25,8 +27,18 @@ const Contact = () => {
       displayAlert()
       return
     }
-    console.log(values)
+    const clientData = {name, email, message}
+    sendMessage(clientData)
   }
+
+  useEffect(()=>{
+    if(client){
+      setTimeout(()=>{
+        navigate('/')
+        clearValues()
+      },3000)
+    }
+  },[client])
 
   // /* emailjs */
   // const form = useRef();

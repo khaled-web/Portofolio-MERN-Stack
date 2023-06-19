@@ -24,9 +24,9 @@ const messageClient = async (req, res) => {
   email
  })
  if (emailAlreadyExists) {
-  throw new CustomError.BadRequestError('Email Already Exists')
+  throw new CustomError.BadRequestError('This Email Already Sent a message')
  }
- //message.length<3
+ //message.length<5
  if (message.length < 5) {
   throw new CustomError.BadRequestError('Please Provide more details about message')
  }
@@ -40,11 +40,9 @@ const messageClient = async (req, res) => {
  const token = contact.createJWT()
  //response
  res.status(StatusCodes.CREATED).json({
-  user: {
-   name: contact.name,
-   email: contact.email,
-   message: contact.message
-  },
+  name: contact.name,
+  email: contact.email,
+  message: contact.message,
   token
  })
 }
