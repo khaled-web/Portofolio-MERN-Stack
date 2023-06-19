@@ -5,7 +5,8 @@ const express = require('express')
 const router = express.Router()
 const {
  messageClient,
- getAllClient
+ getAllClient,
+ deleteMessageClient
 } = require('../Controllers/ContactController')
 
 //....
@@ -14,6 +15,7 @@ const {
 
 router.post('/sendMessage', messageClient)
 router.get('/users', getAllClient)
+router.delete('/:id', deleteMessageClient)
 
 
 

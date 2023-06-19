@@ -26,6 +26,10 @@ const messageClient = async (req, res) => {
  if (emailAlreadyExists) {
   throw new CustomError.BadRequestError('Email Already Exists')
  }
+ //message.length<3
+ if (message.length < 5) {
+  throw new CustomError.BadRequestError('Please Provide more details about message')
+ }
  //schema
  const contact = await Contact.create({
   name,
@@ -56,6 +60,22 @@ const getAllClient = async (req, res) => {
 }
 
 
+//deleteMessageClient
+const deleteMessageClient = async (req, res) => {
+ const {
+  id: contactId
+ } = req.params
+ const contact = await Contact.findByIdAndRemove({
+  _id: contactId
+ })
+ if (!contact) {
+  throw new CustomError.NotFoundError(`No product with id : ${contactId}`)
+ }
+ res.status(StatusCodes.OK).json({
+  msg: 'Success! Client Removed'
+ })
+}
+
 
 
 //.........
@@ -63,5 +83,6 @@ const getAllClient = async (req, res) => {
 //.........
 module.exports = {
  messageClient,
- getAllClient
+ getAllClient,
+ deleteMessageClient
 }

@@ -55,7 +55,7 @@ const Contact = () => {
                 <input type="email" name="email" value={values.email}  placeholder='email' onChange={handleChange}/>
                 <textarea name="message" value={values.message} placeholder='message' cols="30" rows="5" onChange={handleChange}></textarea>
 
-                <button type='submit' className='contact-send'>
+                <button type='submit' className='contact-send' disabled={isLoading}>
                   send
                 </button>
               </form>

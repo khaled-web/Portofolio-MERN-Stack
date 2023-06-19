@@ -28,7 +28,7 @@ const ContactSchema = new mongoose.Schema({
  message: {
   type: String,
   required: [true, 'Please provide message'],
-  minLength: 3,
+  minLength: 5,
   MaxLength: 1000,
   trim: true
  },
